@@ -1,0 +1,108 @@
+{
+	"name": "pl_csv_to_parquet_ingestion_template",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_from_landing_to_bronze",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"additionalColumns": [
+							{
+								"name": "tec_src_filename",
+								"value": "$$FILENAME"
+							},
+							{
+								"name": "tec_bronze_ingestion_dt",
+								"value": {
+									"value": "@pipeline().TriggerTime",
+									"type": "Expression"
+								}
+							}
+						],
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"sink": {
+						"type": "ParquetSink",
+						"storeSettings": {
+							"type": "AzureBlobFSWriteSettings",
+							"copyBehavior": "FlattenHierarchy"
+						},
+						"formatSettings": {
+							"type": "ParquetWriteSettings"
+						}
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": {
+								"value": "@pipeline().parameters.filepath",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@pipeline().parameters.filename",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_parquet",
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": {
+								"value": "@concat(pipeline().parameters.filepath, '/' , formatDateTime(pipeline().TriggerTime,'yyyy') , '/', formatDateTime(pipeline().TriggerTime,'MM'), '/',formatDateTime(pipeline().TriggerTime,'dd'))",
+								"type": "Expression"
+							},
+							"filename": {
+								"value": "@concat(pipeline().parameters.filepath, '_', formatDateTime(pipeline().TriggerTime,'hh:mm:ss tt'), '.parquet')",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"filepath": {
+				"type": "string"
+			},
+			"filename": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-02-21T17:51:35Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

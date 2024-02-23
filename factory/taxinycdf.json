@@ -1,0 +1,9 @@
+{
+	"name": "taxinycdf",
+	"location": "switzerlandnorth",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "049a11b7-e89c-4d24-971c-a3250fa6f1b4",
+		"tenantId": "fbe78da0-0537-445b-8af3-7702becec46d"
+	}
+}

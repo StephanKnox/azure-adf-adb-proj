@@ -1,0 +1,28 @@
+{
+	"name": "tr_on_file_upload_to_landing",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_csv_to_parquet_ingestion_template",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"filepath": "@triggerBody().folderPath",
+					"filename": "@triggerBody().fileName"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/0-landing/blobs/taxi",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/914e6dc1-4708-45e0-8c9e-b29c1b4faec8/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/terraformazurezurich1",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}
