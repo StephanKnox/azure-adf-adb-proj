@@ -80,6 +80,7 @@
 						"referenceName": "ds_parquet",
 						"type": "DatasetReference",
 						"parameters": {
+							"containername": "1-bronze",
 							"filepath": {
 								"value": "@concat(pipeline().parameters.filepath, '/' , formatDateTime(pipeline().TriggerTime,'yyyy') , '/', formatDateTime(pipeline().TriggerTime,'MM'), '/',formatDateTime(pipeline().TriggerTime,'dd'))",
 								"type": "Expression"
