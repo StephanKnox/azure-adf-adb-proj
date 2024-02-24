@@ -37,10 +37,12 @@
 		],
 		"parameters": {
 			"filepath": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@pipeline.parameters.filepath"
 			},
 			"filename": {
-				"type": "string"
+				"type": "string",
+				"defaultValue": "@pipeline.parameters.filename"
 			}
 		},
 		"annotations": []
