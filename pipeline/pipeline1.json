@@ -5,6 +5,8 @@
 			{
 				"name": "Get Metadata1",
 				"type": "GetMetadata",
+				"state": "Inactive",
+				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.12:00:00",
@@ -19,7 +21,7 @@
 						"referenceName": "ds_csv",
 						"type": "DatasetReference",
 						"parameters": {
-							"filepath": "/0-landing/taxizones/b.core.windows.n",
+							"filepath": "/0-landing/taxizones/",
 							"filename": "taxi+_zone_lookup.csv"
 						}
 					},
@@ -29,10 +31,69 @@
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
+					}
+				}
+			},
+			{
+				"name": "lkp_src_file_schema_from_conf",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": "/2-silver/validation/",
+							"filename": "schema_validation_param.csv"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "fil_on_dataset",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "lkp_src_file_schema_from_conf",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lkp_src_file_schema_from_conf').output.value[1]",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "pipeline().parameters.filename == activity('lkp_src_file_schema_from_conf').output.value",
+						"type": "Expression"
 					}
 				}
 			}
