@@ -268,7 +268,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@equals(activity('get_src_file_meta').output.columnCount,activity('fil_on_dataset').output.value[1].column_count )",
+								"value": "@equals(activity('get_src_file_meta').output.columnCount,activity('fil_on_dataset').output.value[0].column_count )",
 								"type": "Expression"
 							},
 							"ifTrueActivities": [
