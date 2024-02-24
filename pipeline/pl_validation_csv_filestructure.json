@@ -134,8 +134,14 @@
 								},
 								"waitOnCompletion": true,
 								"parameters": {
-									"filepath": "@pipeline.parameters.pp_filepath",
-									"filename": "@pipeline.parameters.pp_filename"
+									"filepath": {
+										"value": "pipeline.parameters.pp_filepath",
+										"type": "Expression"
+									},
+									"filename": {
+										"value": "pipeline.parameters.pp_filename",
+										"type": "Expression"
+									}
 								}
 							}
 						}
