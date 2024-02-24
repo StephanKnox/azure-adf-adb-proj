@@ -156,7 +156,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Lookup1",
+						"name": "lkp_conf_validation_schema",
 						"type": "Lookup",
 						"dependsOn": [],
 						"policy": {
@@ -191,11 +191,11 @@
 						}
 					},
 					{
-						"name": "Filter1",
+						"name": "fil_on_dataset",
 						"type": "Filter",
 						"dependsOn": [
 							{
-								"activity": "Lookup1",
+								"activity": "lkp_conf_validation_schema",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -204,7 +204,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"items": {
-								"value": "@activity('Lookup1').output.value",
+								"value": "@activity('lkp_conf_validation_schema').output.value",
 								"type": "Expression"
 							},
 							"condition": {
@@ -214,7 +214,7 @@
 						}
 					},
 					{
-						"name": "Get Metadata1",
+						"name": "get_src_file_meta",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -249,17 +249,17 @@
 						}
 					},
 					{
-						"name": "If Condition1",
+						"name": "if_schema_validation",
 						"type": "IfCondition",
 						"dependsOn": [
 							{
-								"activity": "Get Metadata1",
+								"activity": "get_src_file_meta",
 								"dependencyConditions": [
 									"Succeeded"
 								]
 							},
 							{
-								"activity": "Filter1",
+								"activity": "fil_on_dataset",
 								"dependencyConditions": [
 									"Succeeded"
 								]
@@ -268,7 +268,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@equals(activity('Get Metadata1').output.columnCount,activity('Filter1').output.value.column_count )",
+								"value": "@equals(activity('get_src_file_meta').output.columnCount,activity('fil_on_dataset').output.value[2] )",
 								"type": "Expression"
 							},
 							"ifTrueActivities": [
