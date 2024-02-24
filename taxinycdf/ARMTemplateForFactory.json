@@ -288,11 +288,11 @@
 										"waitOnCompletion": true,
 										"parameters": {
 											"filepath": {
-												"value": "pipeline.parameters.pp_filepath",
+												"value": "@pipeline().parameters.pp_filepath",
 												"type": "Expression"
 											},
 											"filename": {
-												"value": "pipeline.parameters.pp_filename",
+												"value": "@pipeline().parameters.pp_filename",
 												"type": "Expression"
 											}
 										}
