@@ -16,7 +16,7 @@
 			},
 			{
 				"pipelineReference": {
-					"referenceName": "pipeline1",
+					"referenceName": "pl_csv_validation_filestructure",
 					"type": "PipelineReference"
 				},
 				"parameters": {

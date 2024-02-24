@@ -1,9 +1,9 @@
 {
-	"name": "pipeline1",
+	"name": "pl_csv_validation_filestructure",
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
+				"name": "get_metadata_src_file",
 				"type": "GetMetadata",
 				"dependsOn": [],
 				"policy": {
@@ -17,32 +17,91 @@
 				"typeProperties": {
 					"dataset": {
 						"referenceName": "ds_csv",
-						"type": "DatasetReference"
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": "@pipeline.parameters.filepath",
+							"filename": "@pipeline.parameters.filename"
+						}
 					},
 					"fieldList": [
-						"columnCount",
-						"childItems",
-						"itemName",
-						"itemType"
+						"structure",
+						"columnCount"
 					],
 					"storeSettings": {
 						"type": "AzureBlobFSReadSettings",
+						"recursive": true,
 						"enablePartitionDiscovery": false
 					},
 					"formatSettings": {
 						"type": "DelimitedTextReadSettings"
 					}
 				}
+			},
+			{
+				"name": "lkp_src_file_schema_from_conf",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "DelimitedTextSource",
+						"storeSettings": {
+							"type": "AzureBlobFSReadSettings",
+							"recursive": true,
+							"enablePartitionDiscovery": false
+						},
+						"formatSettings": {
+							"type": "DelimitedTextReadSettings"
+						}
+					},
+					"dataset": {
+						"referenceName": "ds_csv",
+						"type": "DatasetReference",
+						"parameters": {
+							"filepath": "/2-silver/validation/",
+							"filename": "schema_validation_param.csv"
+						}
+					},
+					"firstRowOnly": false
+				}
+			},
+			{
+				"name": "fil_on_dataset",
+				"type": "Filter",
+				"dependsOn": [
+					{
+						"activity": "lkp_src_file_schema_from_conf",
+						"dependencyConditions": [
+							"Succeeded"
+						]
+					}
+				],
+				"userProperties": [],
+				"typeProperties": {
+					"items": {
+						"value": "@activity('lkp_src_file_schema_from_conf').output.value",
+						"type": "Expression"
+					},
+					"condition": {
+						"value": "pipeline().parameters.filename == activity('lkp_src_file_schema_from_conf').output.value",
+						"type": "Expression"
+					}
+				}
 			}
 		],
 		"parameters": {
 			"filepath": {
-				"type": "string",
-				"defaultValue": "@pipeline.parameters.filepath"
+				"type": "string"
 			},
 			"filename": {
-				"type": "string",
-				"defaultValue": "@pipeline.parameters.filename"
+				"type": "string"
 			}
 		},
 		"annotations": []
