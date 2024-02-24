@@ -13,6 +13,16 @@
 					"filepath": "@triggerBody().folderPath",
 					"filename": "@triggerBody().fileName"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "pipeline1",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"filepath": "@triggerBody().filePath",
+					"filename": "@triggerBody().fileName"
+				}
 			}
 		],
 		"type": "BlobEventsTrigger",
