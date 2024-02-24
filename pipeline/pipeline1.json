@@ -3,41 +3,6 @@
 	"properties": {
 		"activities": [
 			{
-				"name": "Get Metadata1",
-				"type": "GetMetadata",
-				"dependsOn": [],
-				"policy": {
-					"timeout": "0.12:00:00",
-					"retry": 0,
-					"retryIntervalInSeconds": 30,
-					"secureOutput": false,
-					"secureInput": false
-				},
-				"userProperties": [],
-				"typeProperties": {
-					"dataset": {
-						"referenceName": "ds_csv",
-						"type": "DatasetReference",
-						"parameters": {
-							"filepath": "/0-landing/taxizones/",
-							"filename": "taxi+_zone_lookup.csv"
-						}
-					},
-					"fieldList": [
-						"columnCount",
-						"structure"
-					],
-					"storeSettings": {
-						"type": "AzureBlobFSReadSettings",
-						"recursive": true,
-						"enablePartitionDiscovery": false
-					},
-					"formatSettings": {
-						"type": "DelimitedTextReadSettings"
-					}
-				}
-			},
-			{
 				"name": "lkp_src_file_schema_from_conf",
 				"type": "Lookup",
 				"dependsOn": [],
