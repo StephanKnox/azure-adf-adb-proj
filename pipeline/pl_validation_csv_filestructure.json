@@ -118,6 +118,22 @@
 						"value": "@equals(activity('get_src_file_meta').output.columnCount,activity('fil_on_dataset').output.value[0].column_count)",
 						"type": "Expression"
 					},
+					"ifFalseActivities": [
+						{
+							"name": "Set variable1",
+							"type": "SetVariable",
+							"dependsOn": [],
+							"policy": {
+								"secureOutput": false,
+								"secureInput": false
+							},
+							"userProperties": [],
+							"typeProperties": {
+								"variableName": "testing_var",
+								"value": "False"
+							}
+						}
+					],
 					"ifTrueActivities": [
 						{
 							"name": "execute_pl_ingestion_csv",
@@ -157,6 +173,11 @@
 			"pp_filename": {
 				"type": "string",
 				"defaultValue": "taxi+_zone_lookup.csv"
+			}
+		},
+		"variables": {
+			"testing_var": {
+				"type": "String"
 			}
 		},
 		"annotations": []
