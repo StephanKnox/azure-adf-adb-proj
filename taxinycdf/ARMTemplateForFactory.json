@@ -208,7 +208,7 @@
 								"type": "Expression"
 							},
 							"condition": {
-								"value": "@equals(item().source_name, 'taxizones' )",
+								"value": "@equals(item().source_name, pipeline().parameters.pp_filename)",
 								"type": "Expression"
 							}
 						}
