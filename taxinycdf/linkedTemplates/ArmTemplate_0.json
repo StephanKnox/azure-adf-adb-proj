@@ -315,8 +315,43 @@
 								"type": "Expression"
 							},
 							"condition": {
-								"value": "@equals(item().sourcename, 'taxizones' )",
+								"value": "@equals(item().source_name, 'taxizones' )",
 								"type": "Expression"
+							}
+						}
+					},
+					{
+						"name": "Get Metadata1",
+						"type": "GetMetadata",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataset": {
+								"referenceName": "ds_csv",
+								"type": "DatasetReference",
+								"parameters": {
+									"filepath": "/0-landing/",
+									"filename": "taxizones/taxi+_zone_lookup.csv"
+								}
+							},
+							"fieldList": [
+								"columnCount",
+								"structure"
+							],
+							"storeSettings": {
+								"type": "AzureBlobFSReadSettings",
+								"recursive": true,
+								"enablePartitionDiscovery": false
+							},
+							"formatSettings": {
+								"type": "DelimitedTextReadSettings"
 							}
 						}
 					}
@@ -326,10 +361,12 @@
 				},
 				"parameters": {
 					"pp_filepath": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "/0-landing/taxizones/"
 					},
 					"pp_filename": {
-						"type": "string"
+						"type": "string",
+						"defaultValue": "taxi+_zone_lookup.csv"
 					}
 				},
 				"annotations": []
