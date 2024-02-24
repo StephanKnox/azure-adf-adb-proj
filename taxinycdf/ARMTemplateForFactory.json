@@ -268,7 +268,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"expression": {
-								"value": "@equals(activity('get_src_file_meta').output.columnCount,activity('fil_on_dataset').output.value[0].column_count)",
+								"value": "@equals(string(activity('get_src_file_meta').output.columnCount),string(activity('fil_on_dataset').output.value[0].column_count))",
 								"type": "Expression"
 							},
 							"ifFalseActivities": [
@@ -283,7 +283,10 @@
 									"userProperties": [],
 									"typeProperties": {
 										"variableName": "testing_var",
-										"value": "False"
+										"value": {
+											"value": "@string(activity('get_src_file_meta').output.columnCount)",
+											"type": "Expression"
+										}
 									}
 								}
 							],
