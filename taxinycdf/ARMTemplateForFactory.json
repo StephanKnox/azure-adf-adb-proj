@@ -33,7 +33,7 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_csv_to_parquet_ingestion_template')]",
+			"name": "[concat(parameters('factoryName'), '/pl_ingestion_csv_to_bronze')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -266,7 +266,7 @@
 									"userProperties": [],
 									"typeProperties": {
 										"pipeline": {
-											"referenceName": "pl_csv_to_parquet_ingestion_template",
+											"referenceName": "pl_ingestion_csv_to_bronze",
 											"type": "PipelineReference"
 										},
 										"waitOnCompletion": true,
@@ -344,7 +344,7 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_csv')]",
 				"[concat(variables('factoryId'), '/datasets/ds_json')]",
-				"[concat(variables('factoryId'), '/pipelines/pl_csv_to_parquet_ingestion_template')]"
+				"[concat(variables('factoryId'), '/pipelines/pl_ingestion_csv_to_bronze')]"
 			]
 		},
 		{
@@ -384,6 +384,44 @@
 					"quoteChar": "\""
 				},
 				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2_ls')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_json')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ADLSGen2_ls",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"filepath": {
+						"type": "string"
+					},
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@dataset().filepath",
+							"type": "Expression"
+						}
+					}
+				},
+				"schema": {}
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2_ls')]"
@@ -485,44 +523,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_validation_csv_filestructure')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_json')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ADLSGen2_ls",
-					"type": "LinkedServiceReference"
-				},
-				"parameters": {
-					"filepath": {
-						"type": "string"
-					},
-					"filename": {
-						"type": "string"
-					}
-				},
-				"annotations": [],
-				"type": "Json",
-				"typeProperties": {
-					"location": {
-						"type": "AzureBlobFSLocation",
-						"fileName": {
-							"value": "@dataset().filename",
-							"type": "Expression"
-						},
-						"folderPath": {
-							"value": "@dataset().filepath",
-							"type": "Expression"
-						}
-					}
-				},
-				"schema": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ADLSGen2_ls')]"
 			]
 		}
 	]
