@@ -2,7 +2,7 @@
 	"name": "tr_on_file_upload_to_landing",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [
 			{
 				"pipelineReference": {
