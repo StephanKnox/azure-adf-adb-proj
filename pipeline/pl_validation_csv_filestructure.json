@@ -113,7 +113,7 @@
 							"userProperties": [],
 							"typeProperties": {
 								"pipeline": {
-									"referenceName": "pl_csv_to_parquet_ingestion_template",
+									"referenceName": "pl_ingestion_csv_to_bronze",
 									"type": "PipelineReference"
 								},
 								"waitOnCompletion": true,

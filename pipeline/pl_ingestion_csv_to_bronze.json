@@ -1,5 +1,5 @@
 {
-	"name": "pl_csv_to_parquet_ingestion_template",
+	"name": "pl_ingestion_csv_to_bronze",
 	"properties": {
 		"activities": [
 			{
