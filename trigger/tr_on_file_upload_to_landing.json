@@ -13,6 +13,16 @@
 					"filepath": "@triggerBody().folderPath",
 					"filename": "@triggerBody().fileName"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "pl_validation_csv_filestructure",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"pp_filepath": "@triggerBody().folderPath",
+					"pp_filename": "@triggerBody().fileName"
+				}
 			}
 		],
 		"type": "BlobEventsTrigger",
