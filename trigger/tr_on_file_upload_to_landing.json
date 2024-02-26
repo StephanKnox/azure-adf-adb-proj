@@ -6,16 +6,6 @@
 		"pipelines": [
 			{
 				"pipelineReference": {
-					"referenceName": "pl_csv_to_parquet_ingestion_template",
-					"type": "PipelineReference"
-				},
-				"parameters": {
-					"filepath": "@triggerBody().folderPath",
-					"filename": "@triggerBody().fileName"
-				}
-			},
-			{
-				"pipelineReference": {
 					"referenceName": "pl_validation_csv_filestructure",
 					"type": "PipelineReference"
 				},
