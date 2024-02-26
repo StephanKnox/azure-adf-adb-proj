@@ -23,6 +23,14 @@
 			"type": "string",
 			"defaultValue": "@triggerBody().fileName"
 		},
+		"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath": {
+			"type": "string",
+			"defaultValue": "@triggerBody().folderPath"
+		},
+		"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filename": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
 		"tr_on_file_upload_to_landing_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/914e6dc1-4708-45e0-8c9e-b29c1b4faec8/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/terraformazurezurich1"
@@ -65,6 +73,12 @@
 					},
 					"tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename": {
 						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename')]"
+					},
+					"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath": {
+						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath')]"
+					},
+					"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filename": {
+						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filename')]"
 					},
 					"tr_on_file_upload_to_landing_properties_typeProperties_scope": {
 						"value": "[parameters('tr_on_file_upload_to_landing_properties_typeProperties_scope')]"

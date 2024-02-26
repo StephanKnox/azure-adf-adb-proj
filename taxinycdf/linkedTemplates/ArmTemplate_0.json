@@ -23,6 +23,14 @@
 			"type": "string",
 			"defaultValue": "@triggerBody().fileName"
 		},
+		"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath": {
+			"type": "string",
+			"defaultValue": "@triggerBody().folderPath"
+		},
+		"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filename": {
+			"type": "string",
+			"defaultValue": "@triggerBody().fileName"
+		},
 		"tr_on_file_upload_to_landing_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/914e6dc1-4708-45e0-8c9e-b29c1b4faec8/resourceGroups/rg-terraform/providers/Microsoft.Storage/storageAccounts/terraformazurezurich1"
@@ -498,7 +506,7 @@
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"annotations": [],
-				"runtimeState": "Started",
+				"runtimeState": "Stopped",
 				"pipelines": [
 					{
 						"pipelineReference": {
@@ -508,6 +516,16 @@
 						"parameters": {
 							"filepath": "[parameters('tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filepath')]",
 							"filename": "[parameters('tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename')]"
+						}
+					},
+					{
+						"pipelineReference": {
+							"referenceName": "pl_validation_csv_filestructure",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"pp_filepath": "[parameters('tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath')]",
+							"pp_filename": "[parameters('tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filename')]"
 						}
 					}
 				],
@@ -522,7 +540,8 @@
 				}
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/pipelines/pl_csv_to_parquet_ingestion_template')]"
+				"[concat(variables('factoryId'), '/pipelines/pl_csv_to_parquet_ingestion_template')]",
+				"[concat(variables('factoryId'), '/pipelines/pl_validation_csv_filestructure')]"
 			]
 		}
 	]
