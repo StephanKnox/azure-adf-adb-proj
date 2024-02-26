@@ -15,14 +15,6 @@
 			"type": "string",
 			"defaultValue": "https://terraformazurezurich1.dfs.core.windows.net/"
 		},
-		"tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filepath": {
-			"type": "string",
-			"defaultValue": "@triggerBody().folderPath"
-		},
-		"tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename": {
-			"type": "string",
-			"defaultValue": "@triggerBody().fileName"
-		},
 		"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath": {
 			"type": "string",
 			"defaultValue": "@triggerBody().folderPath"
@@ -67,12 +59,6 @@
 					},
 					"ADLSGen2_ls_properties_typeProperties_url": {
 						"value": "[parameters('ADLSGen2_ls_properties_typeProperties_url')]"
-					},
-					"tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filepath": {
-						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filepath')]"
-					},
-					"tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename": {
-						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_csv_to_parquet_ingestion_template_parameters_filename')]"
 					},
 					"tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath": {
 						"value": "[parameters('tr_on_file_upload_to_landing_properties_pl_validation_csv_filestructure_parameters_pp_filepath')]"
