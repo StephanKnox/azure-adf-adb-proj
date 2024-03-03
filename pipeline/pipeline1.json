@@ -152,6 +152,10 @@
 										"type": "String"
 									}
 								}
+							},
+							"linkedServiceName": {
+								"referenceName": "AZSqlDB",
+								"type": "LinkedServiceReference"
 							}
 						}
 					]
