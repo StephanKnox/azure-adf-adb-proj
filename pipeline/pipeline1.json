@@ -131,7 +131,10 @@
 									"referenceName": "ds_sqlsever_sink",
 									"type": "DatasetReference",
 									"parameters": {
-										"tableList": "@dataset().p_sink_tablename"
+										"SinkTableName": {
+											"value": "dataset().SinkTableName",
+											"type": "Expression"
+										}
 									}
 								}
 							]

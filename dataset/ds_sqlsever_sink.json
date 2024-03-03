@@ -6,9 +6,9 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"tableList": {
+			"SinkTableName": {
 				"type": "string",
-				"defaultValue": "@dataset().tableList"
+				"defaultValue": "@dataset().SinkTableName"
 			}
 		},
 		"annotations": [],
