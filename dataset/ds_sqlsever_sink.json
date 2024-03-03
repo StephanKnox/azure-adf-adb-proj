@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"p_sink_tablename": {
+			"tableList": {
 				"type": "string",
 				"defaultValue": "@dataset().p_sink_tablename"
 			}
