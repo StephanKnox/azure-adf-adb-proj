@@ -8,7 +8,7 @@
 		"parameters": {
 			"tableList": {
 				"type": "string",
-				"defaultValue": "@dataset().p_sink_tablename"
+				"defaultValue": "@dataset().tableList"
 			}
 		},
 		"annotations": [],
